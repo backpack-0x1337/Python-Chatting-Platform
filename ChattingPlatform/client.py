@@ -42,7 +42,7 @@ def handle_receiving(conn, addr):
 
 def main():
     # thr
-    client.listen()
+    # client.listen()
     print(f"[LISTENING] client is starting")
     while True:
         conn, addr = client.accept()
