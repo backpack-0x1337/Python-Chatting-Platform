@@ -1,0 +1,7 @@
+import socket
+
+HEADER = 258
+PORT = 33337
+HOST_NAME = socket.gethostname()
+DISCONNECT_MESSAGE = '!DISCONNECTED'
+ERROR_OK = 'ERROR_OK'
