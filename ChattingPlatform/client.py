@@ -1,8 +1,6 @@
 import threading
 from time import sleep
-
 from config import *
-from os import wait
 
 SERVER = HOST
 ADDR = (SERVER, PORT)
@@ -22,7 +20,6 @@ def send(msg):
     send_length += b' ' * (HEADER - len(send_length))
     client.send(send_length)
     client.send(message)
-    wait()
     # print(client.recv(2048).decode(FORMAT))
 
 

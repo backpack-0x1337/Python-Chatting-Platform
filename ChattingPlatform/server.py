@@ -53,6 +53,7 @@ def receive_from_client(conn):
         # print(f"[{addr}]{msg}")
 
 def handle_client(conn, addr):
+
     print(f"[NEW CONNECTION]{addr} connected.")
     # ask client name
     # check whether password is valid! (in utf-8 format)
