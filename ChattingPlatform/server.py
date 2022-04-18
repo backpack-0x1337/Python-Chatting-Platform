@@ -75,7 +75,7 @@ def start():
         client_list.append(conn)
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        print(f"[ACTIVE CONNECTION]{threading.activeCount() - 1}")
+        print(f"[ACTIVE CONNECTION]{threading.active_count() - 1}")
 
 
 client_list = []
