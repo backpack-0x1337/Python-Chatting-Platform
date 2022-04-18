@@ -2,7 +2,7 @@ import socket
 import threading
 import time
 
-HEADER = 64
+HEADER = 258
 PORT = 55001
 INFO_SIZE = 1024
 # SERVER = "1.132.104.202"
@@ -20,7 +20,7 @@ server.bind(ADDR)
 
 
 def isPasswordValid(to_check_password):
-    return to_check_password == PASSWORD
+    return int(to_check_password) == PASSWORD
 
 
 def send_to_clients(msg):
@@ -32,7 +32,9 @@ def send_to_clients(msg):
 
 def send_to_client(client_connection, msg):
     # first send header which is the length of message
-    client_connection.send(str(len(msg))).encode(FORMAT)
+    send_length = str(msg).encode(FORMAT)
+    send_length += b' '*(HEADER - len(send_length))
+    client_connection.send(send_length)
     client_connection.send(msg).encode(FORMAT)
 
 
@@ -51,7 +53,7 @@ def handle_client(conn, addr):
     # ask client name
     # check whether password is valid! (in utf-8 format)
     send_to_client(conn, "Hey you Welcome! Enter the password to continue!")
-    password = int(conn.recv(INFO_SIZE).decode(FORMAT))
+    temp, password = receive_from_client(conn)
     if not isPasswordValid(password):
         conn.send("You password is incorrect! SEE YA")
 
