@@ -2,12 +2,10 @@ import threading
 import time
 from config import *
 
-INFO_SIZE = 1024
 # SERVER = "1.132.104.202"
 
-SERVER = socket.gethostbyname(HOST_NAME)
+SERVER = HOST
 print(SERVER)
-# todo get ipaddress
 # print(SERVER)
 ADDR = (SERVER, PORT)
 FORMAT = 'utf-8'

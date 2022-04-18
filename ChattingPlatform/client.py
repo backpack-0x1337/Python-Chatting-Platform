@@ -4,7 +4,7 @@ from time import sleep
 from config import *
 from os import wait
 
-SERVER = socket.gethostbyname(HOST_NAME)
+SERVER = HOST
 ADDR = (SERVER, PORT)
 
 FORMAT = 'utf-8'
