@@ -9,8 +9,6 @@ FORMAT = 'utf-8'
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
-kill = False
-
 
 def send(msg):
     message = msg.encode(FORMAT)
@@ -35,8 +33,6 @@ def handle_sending(conn):
             message = input("")
             send_message(conn, message)
             # print("message sent")
-            if kill is True:
-                exit()
     except Exception:
         print(Exception)
         exit()
