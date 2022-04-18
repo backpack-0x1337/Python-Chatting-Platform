@@ -1,6 +1,6 @@
 import socket
 
-HEADER = 128
+HEADER = 64
 PORT = 5050
 SERVER = socket.gethostbyname(socket.gethostname())
 ADDR = (SERVER, PORT)
