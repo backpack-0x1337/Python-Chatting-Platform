@@ -1,2 +1,0 @@
-# is private ip address just mac address?
-# does big internet just lots of small internet
