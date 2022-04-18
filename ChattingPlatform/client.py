@@ -4,6 +4,7 @@ from config import *
 
 SERVER = HOST
 ADDR = (SERVER, PORT)
+print(SERVER)
 
 FORMAT = 'utf-8'
 

@@ -35,6 +35,7 @@ def send_to_client(client_connection, msg):
     client_connection.send(header_message)
     client_connection.send(message)
 
+
 def receive_from_client(conn):
     msg = ''
     try:
@@ -50,50 +51,53 @@ def receive_from_client(conn):
         return msg
     # receive_from_client(conn)
 
-        # print(f"[{addr}]{msg}")
+    # print(f"[{addr}]{msg}")
+
 
 def handle_client(conn, addr):
-
-    print(f"[NEW CONNECTION]{addr} connected.")
-    # ask client name
-    # check whether password is valid! (in utf-8 format)
-    # receive_from_client(conn)
-    # time.sleep(1)
-    send_to_client(conn, "Hey you Welcome! Enter the password to continue!")
-    password = receive_from_client(conn)
-    while not password:
+    try:
+        print(f"[NEW CONNECTION]{addr} connected.")
+        # ask client name
+        # check whether password is valid! (in utf-8 format)
+        # receive_from_client(conn)
+        # time.sleep(1)
+        send_to_client(conn, "Hey you Welcome! Enter the password to continue!")
         password = receive_from_client(conn)
-    if isPasswordValid(password):
-        print(f"{addr} given right password!")
-        send_to_client(conn, ERROR_OK)
-    else:
-        print(f"{addr} given wrong password disconnecting!")
-        send_to_client(conn, DISCONNECT_MESSAGE)
-        # send_to_client(conn, "You password is incorrect! SEE YA")
-        time.sleep(1)
-        conn.close()
-        exit()
+        while not password:
+            password = receive_from_client(conn)
+        if isPasswordValid(password):
+            print(f"{addr} given right password!")
+            send_to_client(conn, ERROR_OK)
+        else:
+            print(f"{addr} given wrong password disconnecting!")
+            send_to_client(conn, DISCONNECT_MESSAGE)
+            # send_to_client(conn, "You password is incorrect! SEE YA")
+            time.sleep(1)
+            conn.close()
+            exit()
 
-    send_to_client(conn, "What is you name? : ")
-    client_name = receive_from_client(conn)
-    while not client_name:
+        send_to_client(conn, "What is you name? : ")
         client_name = receive_from_client(conn)
-    send_to_client(conn, ERROR_OK)
-    print(f"{client_name} has joined")
-    send_to_clients(f"{client_name} has joined")
+        while not client_name:
+            client_name = receive_from_client(conn)
+        send_to_client(conn, ERROR_OK)
+        print(f"{client_name} has joined")
+        send_to_clients(f"{client_name} has joined")
 
-    connected = True
-    while connected:
-        msg = receive_from_client(conn)
-        if msg == DISCONNECT_MESSAGE:
+        connected = True
+        while connected:
+            msg = receive_from_client(conn)
+            if msg == DISCONNECT_MESSAGE:
+                print(f"{client_name}: {msg}")
+                break
+            send_to_clients(f"{client_name}: {msg}")
             print(f"{client_name}: {msg}")
-            break
-        send_to_clients(f"{client_name}: {msg}")
-        print(f"{client_name}: {msg}")
-    send_to_clients(f"{client_name} left the chat.")
-    client_list.remove(conn)
-    send_to_client(conn, DISCONNECT_MESSAGE)
-    conn.close()
+        send_to_clients(f"{client_name} left the chat.")
+        client_list.remove(conn)
+        send_to_client(conn, DISCONNECT_MESSAGE)
+        conn.close()
+    except Exception:
+        pass
 
 
 def start():
@@ -110,8 +114,6 @@ def start():
     except Exception:
         server.close()
         print(f"[CLOSING] Chatting server is CLOSING")
-
-
 
 
 client_list = []
